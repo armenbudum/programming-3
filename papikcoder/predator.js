@@ -1,20 +1,8 @@
-class Predator {
+class Predator extends LivingCreature {
     constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
-        this.eaten = 1;
+        super(x, y, index);
         this.energy = 30;
-        this.index = index;
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
-        ];
+        this.eaten = 1;
     }
     getNewCoordinates() {
         this.directions = [
@@ -30,17 +18,7 @@ class Predator {
     }
     chooseCell(character) {
         this.getNewCoordinates();
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character) {
-                    found.push(this.directions[i]);
-                }
-            }
-        }
-        return found;
+        return super.chooseCell(character);
     }
     die() {
         if (this.energy === 0) {
@@ -61,7 +39,7 @@ class Predator {
             var newX = newCell[0];
             matrix[newY][newX] = 3;
 
-            var newPredator = new Predator(newX, newY, 1);
+            var newPredator = new Predator(newX, newY, 3);
             predatorArr.push(newPredator);
         } else {
             this.die();
@@ -88,7 +66,7 @@ class Predator {
         var grasseaterCells = this.chooseCell(2);
         var eatenCell = random(grasseaterCells);
         if (eatenCell) {
-            if(this.eaten < 10){
+            if (this.eaten < 10) {
                 var newY = eatenCell[1];
                 var newX = eatenCell[0];
                 matrix[this.y][this.x] = 0;
