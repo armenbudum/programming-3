@@ -45,6 +45,7 @@ module.exports = class GrassEater extends LivingCreature {
             matrix[newY][newX] = 2;
             var newGrasseater = new GrassEater(newX, newY, 2);
             grasseaterArr.push(newGrasseater);
+            // statsge
         } else {
             this.die();
         }

@@ -61,6 +61,18 @@ function draww(matrix) {
                 fill("red");
                 rect(x * side, y * side, x * side, y * side);
             }
+            else if (matrix[y][x] == 4){
+                fill("#ADD8E6");
+                rect(x * side, y * side, x * side, y * side);
+            }
+            else if(matrix[y][x] == 5){
+                fill("pink");
+                rect(x * side, y * side, x * side, y * side);
+            }
+            else if(matrix[y][x] == 6){
+                fill("orange");
+                rect(x * side, y * side, x * side, y * side);
+            }
         }
     }
     // for (var i in grassArr) {

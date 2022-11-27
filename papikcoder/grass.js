@@ -1,7 +1,7 @@
 const LivingCreature = require('./livingcreature')
 module.exports = class Grass extends LivingCreature {
 
-     random(arr){
+    random(arr){
         let result = Math.floor(Math.random()*arr.length);
         return arr[result];
     }
@@ -11,6 +11,7 @@ module.exports = class Grass extends LivingCreature {
         if (this.multiply >= 4 && newCell) {
             var newGrass = new Grass(newCell[0], newCell[1], this.index);
             grassArr.push(newGrass);
+            // statsgr
             matrix[newCell[1]][newCell[0]] = this.index;
             this.multiply = 0;
         }
