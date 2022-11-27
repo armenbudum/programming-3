@@ -76,9 +76,10 @@ function game(){
     for (var i in predatorArr) {
         predatorArr[i].eat();
     }
+    io.sockets.emit("send matrix", matrix)
 }
 
-setInterval(game,1000)
+setInterval(game,150)
 
 io.on('connection', function (socket) {
 
