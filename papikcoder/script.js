@@ -72,9 +72,13 @@ function draww(matrix) {
             else if(matrix[y][x] == 6){
                 fill("orange");
                 rect(x * side, y * side, x * side, y * side);
+            }else if(matrix[y][x] == 7){
+                fill("black");
+                rect(x * side, y * side, x * side, y * side);
             }
         }
     }
+    
     // for (var i in grassArr) {
     //     grassArr[i].mul();
     // }
@@ -85,4 +89,5 @@ function draww(matrix) {
     //     predatorArr[i].eat();
     // }
 }
+
 socket.on('send matrix', draww);

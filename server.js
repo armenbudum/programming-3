@@ -17,6 +17,11 @@ var statspr = 0;
 var statsma = 0;
 var statsfma = 0;
 var statsml = 0;
+var bombstats = 0;
+var arr40 = [];
+for(var i = 0; i < 40; i++){
+    arr40.push(i);
+}
 
 grassArr = [];
 grasseaterArr = [];
@@ -24,6 +29,7 @@ predatorArr = [];
 maleArr = [];
 femaleArr = [];
 mealsArr = [];
+bombArr = [];
 matrix = [];
 arr = [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 6];
 
@@ -61,6 +67,7 @@ const Predator = require('./papikcoder/predator');
 const Male = require('./papikcoder/male');
 const Female = require('./papikcoder/female');
 const Meal = require('./papikcoder/meals');
+const Bomb = require('./papikcoder/bomb');
 
 function createObj() {
     for (let i = 0; i < matrix.length; i++) {
@@ -89,7 +96,12 @@ function createObj() {
                 const me1 = new Meal(j, i, 6);
                 mealsArr.push(me1);
                 statsml = mealsArr.length;
+            } else if (matrix[i][j] == 7) {
+                const bomb = new Bomb(j, i, 7);
+                bombArr.push(bomb);
+                bombstats = bombArr.length;
             }
+
         }
     }
     io.sockets.emit("send matrix", matrix);
@@ -112,13 +124,16 @@ function game() {
     for (var i in femaleArr) {
         femaleArr[i].eat();
     }
+    for (var i in bombArr) {
+        bombarr[i].button.onclick = setInterval(bombArr[i].explosion(), 1000);
+    }
     statsgr = grassArr.length;
     statsge = grasseaterArr.length;
     statspr = predatorArr.length;
     statsma = maleArr.length;
     statsfma = femaleArr.length;
     statsml = mealsArr.length;
-
+    bombstats  = bombArr.length
     io.sockets.emit("send matrix", matrix)
 }
 
@@ -138,9 +153,11 @@ function statsfunc() {
         "predator": statspr,
         "male": statsma,
         "female": statsfma,
-        "meals": statsml
+        "meals": statsml,
+        "bombs dropped": bombArr
     }
     const strstats = JSON.stringify(stats);
     fs.writeFileSync("stats.json", strstats);
 }
 setInterval(statsfunc, 150)
+
